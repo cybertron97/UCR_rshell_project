@@ -18,3 +18,4 @@ bool evaluate(); //execute the command
 		bool isExec();
 };
 #endif
+//

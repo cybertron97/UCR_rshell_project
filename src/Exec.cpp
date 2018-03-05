@@ -21,9 +21,16 @@ return true;
 }
 bool Exec::runTest(vector<char*> testV){ //testing function
 	int checkers = strcmp(testV.at(0), "test");
-	
+        int bracket_checker = strcmp(testV.at(0), "[");	
+
+
 	if (checkers == 0) {    //remove "test"
-testV.erase(testV.begin()); 
+        testV.erase(testV.begin()); 
+	}
+else if (bracket_checker == 0)
+	{
+	    testV.erase(testV.begin()); //need to check the first "]"
+	    testV.pop_back(); //not to introduce another if-else statement and then inclrease malloc but just to use the pop_back
 	}
 struct stat statF; //required for stat() system call
 int statFChecker = stat(testV.back(), &statF);
@@ -59,6 +66,12 @@ if (strcmp(testV.at(0), "-d") == 0){
 	cout << "(True)" << endl;
 	return true;
 
+// "-e"	should always be one since its a default case
+ 	cout << "(True)" << endl;
+ 		return true;
+
+
+
 }
 
 
@@ -66,7 +79,8 @@ bool Exec::evaluate(){ //actual evaluate function
 if (v.size() == 0) { //if size is 0, return false
 return false;
 	}
-	else if ( strcmp(v.at(0), "test") == 0 ) { //tests vector
+	else if ( strcmp(v.at(0), "test") == 0 || strcmp(v.at(0), "[") == 0) { //it checks if there's a testing command (already did in the earlier assignment)
+	//it also checks if it has the first bracket  ) 
 return runTest(v);
 	}
 	else if (strcmp(v.at(0), "exit") == 0  ) {

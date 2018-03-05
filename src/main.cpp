@@ -29,6 +29,25 @@ void rmSemi(vector<char*> &finishedVect)
 		last[strlen(last) - 1] = 0;		
 		return;		
 }
+//removes left parenthesis
+void rmPL(vector<char*> &modVect)
+{
+    char* left = modVect.back();
+    memmove(left, left+0, strlen(left));
+    
+    return;
+}
+//removes right parenthesis
+void rmPR(vector<char*> &modVect)
+{
+    char* right = modVect.back();
+    right[strlen(right) - 1] = 0;
+    
+    return;
+}
+
+
+
 //creating the tree to put in the command  
 Base* createTree(vector<vector<char*> > v){
 
@@ -37,7 +56,7 @@ Base* createTree(vector<vector<char*> > v){
 	stack<vector<char*> > conStack; //connector
 	for( unsigned int i = 0; i < v.size(); i++) {
 			command = (const char *)(v.at(i).at(0));
-			if (*command != '&' && *command != '|' && *command != ';' )
+			if (*command != '&' && *command != '|' && *command != ';'&& *command != '(' && *command != ')' )
 			{
 				q.push(v.at(i) ); //checking the & and the orr and semicolon 
 			}

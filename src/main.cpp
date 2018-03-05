@@ -65,8 +65,25 @@ Base* createTree(vector<vector<char*> > v){
 					conStack.push(v.at(i) );
 					continue;
 				}
-				
-	}}
+
+			else if (*(conStack.top().at(0)) != '('  ) {
+					q.push(conStack.top());
+					conStack.pop();
+				}
+				conStack.push(v.at(i));	
+			}
+			
+			else if (*command == '(' ){
+				conStack.push(v.at(i));
+			}
+			else if (*command == ')' ){
+					while (*(conStack.top().at(0)) != '(' ) {
+								q.push(conStack.top());
+								conStack.pop();
+					}
+					conStack.pop();
+			}
+	}	
 	//exiting the loop or exiting the rshell
 	while (!conStack.empty() ) {
 				q.push(conStack.top());
@@ -126,7 +143,21 @@ int main()
 
 		userInput = userInput.substr(0, userInput.find("#"));
 
-		
+		// to check the entered user input, if not the same then returns back an error
+		int count1 = 0, count2 = 0;
+		for (int i = 0; i < userInput.size(); ++i)
+		{
+	    		if (userInput.at(i) == '(')
+	    		{ count1 += 1; }
+	    		if (userInput.at(i) == ')')
+	    		{ count2 += 1; }
+		}
+		if (count1 != count2)
+		{
+	    		cout<< "Error: Please check the syntax!"<<endl; 
+	    		continue;
+		}
+
 	
 		char str[userInput.size()];	//creates character array with string size
 		strcpy(str,userInput.c_str());	//turn string into character string and store in str[]
@@ -135,17 +166,25 @@ int main()
 		char* last_letter = &(pch[strlen(pch)-1]); // points at las character
 		char* first_letter = pch;
 		bool connectorTrue = false; // checks if previous parse was a connector 
+		
+		//creating vector characters
 		char* orsign = new char('|');
 		char* andsign = new char('&');
-		
-		char* semi = new char(';');	
+		char* semi = new char(';');
+		char* pleft = new char('('); 
+        	char* pright = new char(')');
+	
 		vector<char*> andSign;
 		andSign.push_back(andsign);
 		vector<char*> orSign;
 		orSign.push_back(orsign);	
 		vector<char*> semiSign;
 		semiSign.push_back(semi);
-		
+		vector<char*> prleft;
+		prleft.push_back(pleft);
+		vector<char*> prright;
+		prright.push_back(pright);		
+
 		while (pch != NULL)
 		{
 		 	if(commandVector.size() == 0) 	
@@ -155,7 +194,15 @@ int main()
 				commandVector.push_back(tempVect);
 				connectorTrue = false;
 
-				
+				while (*(first_letter) == '(') // if it starts with a (
+				{
+					commandVector.insert(commandVector.begin(), prleft); //a vector containing (() is pushed to first row of the commandVector
+					rmPL( commandVector.back() ); // pass in the current vector of char* that just got pushed in
+					connectorTrue = false;
+					first_letter = commandVector.back().at(0);
+				}	
+
+
 				if (*(last_letter) == ';') //if it ends with ; 
 				{
 						rmSemi( commandVector.back() ); 
@@ -176,6 +223,17 @@ int main()
 							tempVect.push_back(pch); // a vector containing command/argument is made
 							commandVector.push_back(tempVect); //added as a new row
 							connectorTrue = false;
+							
+							if (*(first_letter) == '(') // if it starts with a (
+							{
+								while (*(first_letter) == '(')
+								{
+									commandVector.insert(commandVector.begin() + (commandVector.size() - 1), prleft); //a vector containing (() is pushed to first row of the cmdVector
+									rmPL( commandVector.back() ); // pass in the current vector of char* that just got pushed in
+									connectorTrue = false;
+									first_letter = commandVector.back().back();
+								}
+							}	
 							
 							if (*(last_letter) == ';') //if it ends with ; 
 							{
@@ -208,7 +266,19 @@ int main()
 								connectorTrue = true; 
 							}
 							
-							
+							else if ( *(last_letter) == ')' ) // lastletter is )
+							{
+								int Par2 = commandVector.size() - 1;
+								commandVector.back().push_back(pch);
+								while ( *(last_letter) == ')' ) // lastletter is )
+								{
+									rmPR( commandVector.at(Par2) );
+									commandVector.push_back(prright);
+									connectorTrue = false;
+									char* temporary_lter = commandVector.at(Par2).back();
+									last_letter = &(temporary_lter[strlen(temporary_lter)-1]);
+								}
+							}
 				
 							else
 							{ 

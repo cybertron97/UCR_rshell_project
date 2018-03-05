@@ -6,7 +6,17 @@ The program is supposed ot be able to read in a command from the user (whether l
 
 First, project gets the input from the user and parses it into separate vectors of strings, which are used to create connector and command objects that are linked to one another and added to its vector. After that, it calls its own execute function that that runs over each Base object, which in turn execute themselves. The user may enter any number of commands until they choose to exit the shell with the "exit" command.
 
+UPDATE: 
+Introducing the "test" command in this new version of rshell: 
+In the updated version of #rShell, the user cqan now use the test command as well as its symbolic equivalent "[]". This command returns 0 (TRUE) if the test succeeds and 1 (FALSE) if the test fails. This command is very useful for writing conditions that can be combined with && and || to write more complex bash command structures.
+This version will also allow the user to use the following flags with the test command such as 
+-e	checks if the file/directory exists
+-f	checks if the file/directory exists and is a regular file
+-d	checks if the file/directory exists and is a directory
+
+Second part of this update also includes implementation of "The Precedence Operators ()". The parentheses ( ) operators are used to change the precedence of the returns of commands, connectors, and chains of connectors.To help with the operation of parenthesis function, we use the algorithm also included in many mathematical calculators.   
+
 List of known bugs:
 1. Some commands work fine in rshell, but don't execute in test shell programs
 2. git status is unable to run due to rshell not being a git repository, though this may be due to other factors
-3. Some comment tests will result in vector errors, however the program can generally handle most types of comments
+

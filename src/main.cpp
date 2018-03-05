@@ -297,6 +297,24 @@ int main()
 		}//end 
 
 
+/*
+ *   There's some ongoing issue with the loop command for the precedence operators 
+ *   so the fix was to remove the beginning the precedecnce operators 
+ *   
+ */
+for (int i = 0; i < commandVector.size(); ++i)
+		{
+			if (*(commandVector.at(i).front()) == NULL)
+			{
+				commandVector.at(i).erase(commandVector.at(i).begin());
+			}
+		}
+
+
+
+
+
+
 		Base* rooot = createTree(commandVector);
 		rooot->evaluate(); //evaluating the tree
 		destroy(rooot); //destroying the vector to clear of memory 

@@ -11,7 +11,7 @@ UPDATE:
 Introducing the "test" command in this new version of rshell: 
 In the updated version of #rShell, the user cqan now use the test command as well as its symbolic equivalent "[]". This command returns 0 (TRUE) if the test succeeds and 1 (FALSE) if the test fails. This command is very useful for writing conditions that can be combined with && and || to write more complex bash command structures.
 <br> <br>
-This version will also allow the user to use the following flags with the test command such as <br> <br>  
+This version will also allow the user to use the following flags with the test command such as  <br>  
 -e	checks if the file/directory exists<br>
 -f	checks if the file/directory exists and is a regular file<br>
 -d	checks if the file/directory exists and is a directory<br> 

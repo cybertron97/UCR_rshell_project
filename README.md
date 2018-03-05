@@ -7,11 +7,11 @@ The program is supposed ot be able to read in a command from the user (whether l
 First, project gets the input from the user and parses it into separate vectors of strings, which are used to create connector and command objects that are linked to one another and added to its vector. After that, it calls its own execute function that that runs over each Base object, which in turn execute themselves. The user may enter any number of commands until they choose to exit the shell with the "exit" command.
 
 UPDATE: 
-<br> 
+<br> <br>
 Introducing the "test" command in this new version of rshell: 
 In the updated version of #rShell, the user cqan now use the test command as well as its symbolic equivalent "[]". This command returns 0 (TRUE) if the test succeeds and 1 (FALSE) if the test fails. This command is very useful for writing conditions that can be combined with && and || to write more complex bash command structures.
-<br> 
-This version will also allow the user to use the following flags with the test command such as 
+<br> <br>
+This version will also allow the user to use the following flags with the test command such as<br> <br> <br>  
 -e	checks if the file/directory exists<br>
 -f	checks if the file/directory exists and is a regular file<br>
 -d	checks if the file/directory exists and is a directory<br> 

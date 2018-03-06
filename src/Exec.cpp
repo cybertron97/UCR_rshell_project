@@ -90,7 +90,7 @@ return runTest(v);
 	v.push_back(NULL); 			
 	char **command = &v[0]; 
 
-pid_t pid = fork(); //fork it
+pid_t pid = fork(); //we fork it to have the exec working 
 if (pid == 0){ 
 	
 		
